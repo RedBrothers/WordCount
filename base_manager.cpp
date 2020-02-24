@@ -6,77 +6,77 @@
 #include <sstream>
 
 Dict BaseManager::merge_dicts(const Dict& d1, const Dict& d2) {
-	Dict result {d1};
-	for (auto& [word, count] : d2) {
-		auto it = d1.find(word);
-		if (it != d1.end()) {
-			result[word] += count;
-		} else {
-			result[word] = count;
-		}
-	}
-	return result;
+    Dict result {d1};
+    for (auto& [word, count] : d2) {
+        auto it = d1.find(word);
+        if (it != d1.end()) {
+            result[word] += count;
+        } else {
+            result[word] = count;
+        }
+    }
+    return result;
 }
 
 std::string BaseManager::read_file(const std::string &file_name) {
-	std::ifstream		in_file;
-	std::stringstream	str_stream;
-	std::string			file_str;
+    std::ifstream        in_file;
+    std::stringstream    str_stream;
+    std::string            file_str;
 
-	in_file.open(file_name);
-	str_stream << in_file.rdbuf();
-	file_str = str_stream.str();
+    in_file.open(file_name);
+    str_stream << in_file.rdbuf();
+    file_str = str_stream.str();
 
-	return file_str;
+    return file_str;
 }
 
 std::vector<std::string> BaseManager::split_file(const std::string &file, size_t n_chunks) {
-	std::vector<std::string>	chunks;
-	std::vector<size_t>			indices;
-	size_t						estimated_chunk_len;
+    std::vector<std::string>    chunks;
+    std::vector<size_t>            indices;
+    size_t                        estimated_chunk_len;
 
 
-	estimated_chunk_len = static_cast<size_t>( file.length() / n_chunks );
+    estimated_chunk_len = static_cast<size_t>( file.length() / n_chunks );
 
-	for (size_t i = 0; i < n_chunks; ++i) {
-		indices.push_back(i * estimated_chunk_len);
-	}
-	indices.push_back(file.length());
+    for (size_t i = 0; i < n_chunks; ++i) {
+        indices.push_back(i * estimated_chunk_len);
+    }
+    indices.push_back(file.length());
 
-	for (size_t i = 0; i < indices.size() - 1; ++i) {
-		while (indices[i] >= 0 && file[indices[i]] != ' ') {
-			--indices[i];
-		}
-	}
+    for (size_t i = 0; i < indices.size() - 1; ++i) {
+        while (indices[i] >= 0 && file[indices[i]] != ' ') {
+            --indices[i];
+        }
+    }
 
-	for (size_t i = 0; i < indices.size() - 1; ++i) {
-		std::string	chunk = file.substr(indices[i], indices[i + 1]);
-		chunks.push_back(chunk);
+    for (size_t i = 0; i < indices.size() - 1; ++i) {
+        std::string    chunk = file.substr(indices[i], indices[i + 1]);
+        chunks.push_back(chunk);
 
-		std::cout << chunk << std::endl;
-	}
+        std::cout << chunk << std::endl;
+    }
 
-	return chunks;
+    return chunks;
 }
 
 void BaseManager::save_dict(const std::string &filename, const OrderedDict &d) {
-	std::ofstream out(filename);
-	if (!out.is_open()) {
-		throw std::runtime_error("couldn't open a file " + filename);
-	}
-	for (auto& t : d) {
-		out << t.first << " " << t.second << std::endl;
-	}
+    std::ofstream out(filename);
+    if (!out.is_open()) {
+        throw std::runtime_error("couldn't open a file " + filename);
+    }
+    for (auto& t : d) {
+        out << t.first << " " << t.second << std::endl;
+    }
 }
 
 OrderedDict BaseManager::sort_by_a(const Dict& d) {
-	Function comparator = [](
-			const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
-	return OrderedDict(d.begin(), d.end(), comparator);
+    Function comparator = [](
+            const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
+    return OrderedDict(d.begin(), d.end(), comparator);
 }
 
 OrderedDict BaseManager::sort_by_n(const Dict& d) {
-	Function comparator = [](
-			const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
-	return OrderedDict(d.begin(), d.end(), comparator);
+    Function comparator = [](
+            const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
+    return OrderedDict(d.begin(), d.end(), comparator);
 }
