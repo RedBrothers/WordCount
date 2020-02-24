@@ -30,7 +30,7 @@ std::string BaseManager::read_file(const std::string &file_name) {
     return file_str;
 }
 
-std::vector<std::string> BaseManager::split_file(const std::string &file, size_t n_chunks) {
+std::vector<size_t> BaseManager::split_file(const std::string &file, size_t n_chunks) {
     std::vector<std::string>    chunks;
     std::vector<size_t>         indices;
     size_t                      estimated_chunk_len;
@@ -47,16 +47,10 @@ std::vector<std::string> BaseManager::split_file(const std::string &file, size_t
         while (indices[i] > 0 && file[indices[i]] != ' ') {
             --indices[i];
         }
+        std::cout << indices[i] << std::endl;
     }
 
-    for (size_t i = 0; i < indices.size() - 1; ++i) {
-        std::string    chunk = file.substr(indices[i], indices[i + 1]);
-        chunks.push_back(chunk);
-
-        std::cout << chunk << std::endl;
-    }
-
-    return chunks;
+    return indices;
 }
 
 void BaseManager::save_dict(const std::string &filename, const OrderedDict &d) {
