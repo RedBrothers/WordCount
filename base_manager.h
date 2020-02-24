@@ -16,9 +16,7 @@ protected:
     Dict wc;
 
     // file manipulations
-    // TODO: implement read_file
-    static std::string read_file(const std::string& file_name);
-    // TODO: implement split_file
+    static std::string read_file(const std::string& filename);
     static std::vector<size_t> split_file(const std::string& file, size_t n_chunks);
 
     // dict manipulations
