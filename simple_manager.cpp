@@ -9,15 +9,15 @@ void SimpleManager::read() {
 void SimpleManager::count() {
     if (n_threads == 1) {
         WordCounter counter;
-        wc = std::move(counter.process(file));
+        wc = std::move(counter.process(file, 0, file.length()));
     } else {
-        std::vector<std::string> chunks = std::move(split_file(file, n_threads));
+        std::vector<size_t> indices = std::move(split_file(file, n_threads));
 
         std::vector<Dict> dicts;
         dicts.reserve(n_threads);
 
         std::vector<WordCounter> counters{n_threads};
-        auto fn = [&](size_t i) { dicts[i] = std::move(counters[i].process(chunks[i])); };
+        auto fn = [&](size_t i) { dicts[i] = std::move(counters[i].process(file, indices[i], indices[i+1])); };
 
         // launching parallel tasks
         std::vector<std::thread> threads;
