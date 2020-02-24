@@ -7,7 +7,7 @@
 
 class WordCounter {
 public:
-	// TODO: implement WordCounter::process
+    // TODO: implement WordCounter::process
     Dict process(const std::string& file);
 private:
     Dict wc;
