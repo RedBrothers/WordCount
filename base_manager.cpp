@@ -19,9 +19,9 @@ Dict BaseManager::merge_dicts(const Dict& d1, const Dict& d2) {
 }
 
 std::string BaseManager::read_file(const std::string &file_name) {
-    std::ifstream        in_file;
-    std::stringstream    str_stream;
-    std::string            file_str;
+    std::ifstream      in_file;
+    std::stringstream  str_stream;
+    std::string        file_str;
 
     in_file.open(file_name);
     str_stream << in_file.rdbuf();
@@ -31,9 +31,9 @@ std::string BaseManager::read_file(const std::string &file_name) {
 }
 
 std::vector<std::string> BaseManager::split_file(const std::string &file, size_t n_chunks) {
-    std::vector<std::string>    chunks;
-    std::vector<size_t>            indices;
-    size_t                        estimated_chunk_len;
+    std::vector<std::string>  chunks;
+    std::vector<size_t>       indices;
+    size_t                    estimated_chunk_len;
 
 
     estimated_chunk_len = static_cast<size_t>( file.length() / n_chunks );
@@ -61,6 +61,7 @@ std::vector<std::string> BaseManager::split_file(const std::string &file, size_t
 
 void BaseManager::save_dict(const std::string &filename, const OrderedDict &d) {
     std::ofstream out(filename);
+
     if (!out.is_open()) {
         throw std::runtime_error("couldn't open a file " + filename);
     }
