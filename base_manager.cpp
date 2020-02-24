@@ -44,7 +44,7 @@ std::vector<std::string> BaseManager::split_file(const std::string &file, size_t
     indices.push_back(file.length());
 
     for (size_t i = 0; i < indices.size() - 1; ++i) {
-        while (indices[i] >= 0 && file[indices[i]] != ' ') {
+        while (indices[i] > 0 && file[indices[i]] != ' ') {
             --indices[i];
         }
     }
