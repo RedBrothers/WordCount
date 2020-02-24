@@ -31,17 +31,17 @@ std::string BaseManager::read_file(const std::string &file_name) {
 }
 
 std::vector<std::string> BaseManager::split_file(const std::string &file, size_t n_chunks) {
-    std::vector<std::string>  chunks;
-    std::vector<size_t>       indices;
-    size_t                    estimated_chunk_len;
+    std::vector<std::string>    chunks;
+    std::vector<size_t>         indices;
+    size_t                      estimated_chunk_len;
+    auto                        file_length = file.length();
 
-
-    estimated_chunk_len = static_cast<size_t>( file.length() / n_chunks );
+    estimated_chunk_len = static_cast<size_t>( file_length / n_chunks );
 
     for (size_t i = 0; i < n_chunks; ++i) {
         indices.push_back(i * estimated_chunk_len);
     }
-    indices.push_back(file.length());
+    indices.push_back(file_length);
 
     for (size_t i = 0; i < indices.size() - 1; ++i) {
         while (indices[i] > 0 && file[indices[i]] != ' ') {
