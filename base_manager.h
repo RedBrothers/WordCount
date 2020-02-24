@@ -7,6 +7,7 @@
 #include <string>
 #include <functional>
 #include "counter.h"
+#include "typedefs.h"
 
 // provides utilities for managers implementations
 class BaseManager {
@@ -19,11 +20,6 @@ protected:
     static std::vector<std::string> split_file(const std::string& file, size_t n_chunks);
 
     // dict manipulations
-
-    using Tuple = std::pair<std::string, size_t>;
-    using Function = std::function<bool(Tuple, Tuple)>;
-    using OrderedDict = std::set<Tuple, Function>;
-
     static Dict merge_dicts(const Dict& d1, const Dict& d2);
     static void save_dict(const std::string& filename, const OrderedDict & d);
     static OrderedDict sort_by_a(const Dict& d);

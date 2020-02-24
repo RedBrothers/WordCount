@@ -25,7 +25,7 @@ add_executable(${PROJECT_NAME}
         config.cpp
         counter.cpp
         base_manager.cpp
-        simple_manager.cpp queue_manager.cpp)
+        simple_manager.cpp)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
         ${Boost_LIBRARIES}

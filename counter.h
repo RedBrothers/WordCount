@@ -3,8 +3,7 @@
 
 #include <map>
 #include <string>
-
-using Dict = std::map<std::string, size_t>;
+#include "typedefs.h"
 
 class WordCounter {
 public:
