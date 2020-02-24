@@ -5,7 +5,6 @@
 #include <vector>
 #include "base_manager.h"
 
-
 class SimpleManager : BaseManager {
 public:
     SimpleManager(
@@ -27,7 +26,5 @@ private:
     size_t n_threads;
     std::string file;
 };
-
-
 
 #endif //WORDCOUNT_SIMPLE_MANAGER_H
