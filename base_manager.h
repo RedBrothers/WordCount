@@ -17,7 +17,7 @@ protected:
 
     // file manipulations
     static std::string read_file(const std::string& filename);
-    static std::vector<std::string> split_file(const std::string& file, size_t n_chunks);
+    static std::vector<size_t> split_file(const std::string& file, size_t n_chunks);
 
     // dict manipulations
     static Dict merge_dicts(const Dict& d1, const Dict& d2);
