@@ -7,10 +7,12 @@
 int main(int argc, char* argv[]) {
 
     // parse a config file
+    std::string filename;
     if (argc != 2) {
-        throw std::runtime_error("Expected call: ./wordcount [config_path]");
+        filename = "config.dat";
+    } else {
+        filename = std::string(argv[1]);
     }
-    std::string filename{argv[1]};
     ConfigParser parser(filename);
     std::string infile = parser.get("infile");
     std::string out_by_a = parser.get("out_by_a");

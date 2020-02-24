@@ -5,18 +5,6 @@
 #include <fstream>
 #include <sstream>
 
-Dict BaseManager::merge_dicts(const Dict& d1, const Dict& d2) {
-    Dict result {d1};
-    for (auto& [word, count] : d2) {
-        auto it = d1.find(word);
-        if (it != d1.end()) {
-            result[word] += count;
-        } else {
-            result[word] = count;
-        }
-    }
-    return result;
-}
 
 std::string BaseManager::read_file(const std::string &file_name) {
     std::ifstream      in_file;
@@ -50,6 +38,19 @@ std::vector<size_t> BaseManager::split_file(const std::string &file, size_t n_ch
     }
 
     return indices;
+}
+
+Dict BaseManager::merge_dicts(const Dict& d1, const Dict& d2) {
+    Dict result {d1};
+    for (auto& [word, count] : d2) {
+        auto it = d1.find(word);
+        if (it != d1.end()) {
+            result[word] += count;
+        } else {
+            result[word] = count;
+        }
+    }
+    return result;
 }
 
 void BaseManager::save_dict(const std::string &filename, const OrderedDict &d) {
