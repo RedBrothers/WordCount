@@ -16,7 +16,8 @@ void SimpleManager::count() {
         std::vector<Dict> dicts;
         dicts.reserve(n_threads);
 
-        auto fn = [&](size_t i) { dicts[i] = std::move(count_words(file, indices[i], indices[i+1])); };
+        auto fn = [&](size_t i) {
+            dicts.push_back(std::move(count_words(file, indices[i], indices[i+1]))); };
 
         // launching parallel tasks
         std::vector<std::thread> threads;
