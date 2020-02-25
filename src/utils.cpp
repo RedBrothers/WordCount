@@ -10,7 +10,7 @@ namespace lc = boost::locale;
 Dict count_words(const std::string& file, size_t start, size_t end) {
     Dict                chunk_map;
     ba::ssegment_index  map(ba::word, file.begin() + start, file.begin() + end);
-    map.rule(ba::word_any);
+    map.rule(ba::word_letters);
 
     for (auto it = map.begin(), e = map.end(); it != e; ++it) {
 

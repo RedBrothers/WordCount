@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     size_t n_threads = std::stoul(parser.get("threads"));
 
     SimpleManager manager{infile, out_by_a, out_by_n, n_threads};
-    
+
     // Configure locale
     std::locale         loc = boost::locale::generator().generate("en_US.UTF-8");
     std::locale::global(loc);
