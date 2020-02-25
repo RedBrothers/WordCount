@@ -8,13 +8,12 @@ namespace ba = boost::locale::boundary;
 namespace lc = boost::locale;
 
 Dict count_words(const std::string& file, size_t start, size_t end) {
-    lc::generator       gen;
     Dict                chunk_map;
-    ba::ssegment_index  map(ba::word, file.begin() + start, file.begin() + end, gen("en_US.UTF-8"));
-
+    ba::ssegment_index  map(ba::word, file.begin() + start, file.begin() + end);
     map.rule(ba::word_any);
 
     for (auto it = map.begin(), e = map.end(); it != e; ++it) {
+
         std::string word(*it);
 
         word = lc::normalize(word);
@@ -54,7 +53,6 @@ std::vector<size_t> split_file(const std::string &file, size_t n_chunks) {
         while (indices[i] > 0 && file[indices[i]] != ' ') {
             --indices[i];
         }
-        std::cout << indices[i] << std::endl;
     }
 
     return indices;
@@ -85,13 +83,19 @@ void save_dict(const std::string &filename, const OrderedDict &d) {
 }
 
 OrderedDict sort_by_a(const Dict& d) {
-    Function comparator = [](
-            const Tuple& p1, const Tuple& p2) { return p1.first < p2.first; };
-    return OrderedDict(d.begin(), d.end(), comparator);
+    OrderedDict v;
+    v.reserve(d.size());
+    std::copy(d.begin(), d.end(), std::back_inserter(v));
+    auto comparator = [](const Tuple& p1, const Tuple& p2) { return p1.first < p2.first; };
+    std::sort(v.begin(), v.end(), comparator);
+    return v;
 }
 
 OrderedDict sort_by_n(const Dict& d) {
-    Function comparator = [](
-            const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
-    return OrderedDict(d.begin(), d.end(), comparator);
+    OrderedDict v;
+    v.reserve(d.size());
+    std::copy(d.begin(), d.end(), std::back_inserter(v));
+    auto comparator = [](const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
+    std::sort(v.begin(), v.end(), comparator);
+    return v;
 }
