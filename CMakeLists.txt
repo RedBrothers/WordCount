@@ -23,11 +23,15 @@ find_package(ICU REQUIRED
         data i18n test
         io tu uc)
 add_executable(${PROJECT_NAME}
-        main.cpp
-        config.cpp
-        counter.cpp
-        base_manager.cpp
-        simple_manager.cpp)
+        src/main.cpp
+        src/utils.cpp
+        src/config.cpp
+        src/simple_manager.cpp
+        src/queue_manager.cpp
+        src/indexer.cpp
+        src/counter.cpp
+        src/merger.cpp)
+target_include_directories(${PROJECT_NAME} PUBLIC include src)
 target_link_libraries(${PROJECT_NAME} PUBLIC
         ${Boost_LIBRARIES}
         ${ICU_LIBRARIES}
