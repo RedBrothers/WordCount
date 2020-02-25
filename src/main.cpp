@@ -2,6 +2,7 @@
 #include "wordcount/simple_manager.h"
 #include <string>
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <boost/locale.hpp>
 
@@ -40,15 +41,18 @@ int main(int argc, char* argv[]) {
     manager.save();
     auto end = std::chrono::high_resolution_clock::now();
 
-    auto total = std::chrono::duration_cast<std::chrono::seconds>(end - start);
-    auto reading = std::chrono::duration_cast<std::chrono::seconds>(r_end - r_start);
-    auto counting = std::chrono::duration_cast<std::chrono::seconds>(c_end - c_start);
+    typedef std::chrono::duration<float> float_seconds;
+    auto total = std::chrono::duration_cast<float_seconds>(end - start);
+    auto reading = std::chrono::duration_cast<float_seconds>(r_end - r_start);
+    auto counting = std::chrono::duration_cast<float_seconds>(c_end - c_start);
+
 
     // Display execution time
     std:: cout
-        << "Reading: " << reading.count() << std::endl
-        << "Counting: " << counting.count() << std::endl
-        << "Total: " << total.count() << std::endl;
+        << std::setprecision(3) << std::fixed
+        << "Reading: " << reading.count() << " seconds\n"
+        << "Counting: " << counting.count() << " seconds\n"
+        << "Total: " << total.count() << " seconds\n";
 
     return 0;
 }

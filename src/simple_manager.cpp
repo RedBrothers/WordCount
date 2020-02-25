@@ -9,7 +9,6 @@ void SimpleManager::read() {
 
 void SimpleManager::count() {
     if (n_threads == 1) {
-
         wc = std::move(count_words(file, 0, file.length()));
     } else {
         std::vector<size_t> indices = std::move(split_file(file, n_threads));
