@@ -2,9 +2,29 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <boost/locale.hpp>
 
+namespace ba = boost::locale::boundary;
+namespace lc = boost::locale;
 
-Dict count_words(const std::string& file, size_t start, size_t end) { return Dict{}; }
+Dict count_words(const std::string& file, size_t start, size_t end) {
+    lc::generator       gen;
+    Dict                chunk_map;
+    ba::ssegment_index  map(ba::word, file.begin() + start, file.begin() + end, gen("en_US.UTF-8"));
+
+    map.rule(ba::word_any);
+
+    for (auto it = map.begin(), e = map.end(); it != e; ++it) {
+        std::string word(*it);
+
+        word = lc::normalize(word);
+        word = lc::fold_case(word);
+
+        ++chunk_map[word];
+    }
+
+    return chunk_map;
+}
 
 std::string read_file(const std::string &file_name) {
     std::ifstream      in_file;

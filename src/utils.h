@@ -10,7 +10,6 @@ std::string read_file(const std::string& filename);
 std::vector<size_t> split_file(const std::string& file, size_t n_chunks);
 
 // word counting
-// TODO: implement count_words
 Dict count_words(const std::string& filename, size_t start, size_t end);
 
 // dict manipulations
