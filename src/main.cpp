@@ -1,5 +1,5 @@
-#include "config.h"
-#include "simple_manager.h"
+#include "wordcount/config.h"
+#include "wordcount/simple_manager.h"
 #include <string>
 #include <chrono>
 #include <iostream>
