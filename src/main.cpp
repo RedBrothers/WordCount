@@ -20,13 +20,13 @@ int main(int argc, char* argv[]) {
     std::string out_by_n = parser.get("out_by_n");
     size_t n_threads = std::stoul(parser.get("threads"));
 
+    SimpleManager manager{infile, out_by_a, out_by_n, n_threads};
+    
+    // Configure locale
     std::locale         loc = boost::locale::generator().generate("en_US.UTF-8");
     std::locale::global(loc);
 
-    SimpleManager manager{infile, out_by_a, out_by_n, n_threads};
-
-
-    // start execution
+    // Start execution
     auto start = std::chrono::high_resolution_clock::now();
 
     auto r_start = std::chrono::high_resolution_clock::now();
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
     auto reading = std::chrono::duration_cast<std::chrono::seconds>(r_end - r_start);
     auto counting = std::chrono::duration_cast<std::chrono::seconds>(c_end - c_start);
 
-    // display execution time
+    // Display execution time
     std:: cout
         << "Reading: " << reading.count() << std::endl
         << "Counting: " << counting.count() << std::endl
