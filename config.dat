@@ -1,0 +1,4 @@
+infile=../data/sample_1/data.txt
+out_by_a=../res_a_4_threads.txt
+out_by_n=../res_n_4_threads.txt
+threads=4

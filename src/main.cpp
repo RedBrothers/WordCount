@@ -3,6 +3,7 @@
 #include <string>
 #include <chrono>
 #include <iostream>
+#include <boost/locale.hpp>
 
 int main(int argc, char* argv[]) {
 
@@ -19,7 +20,11 @@ int main(int argc, char* argv[]) {
     std::string out_by_n = parser.get("out_by_n");
     size_t n_threads = std::stoul(parser.get("threads"));
 
+    std::locale         loc = boost::locale::generator().generate("en_US.UTF-8");
+    std::locale::global(loc);
+
     SimpleManager manager{infile, out_by_a, out_by_n, n_threads};
+
 
     // start execution
     auto start = std::chrono::high_resolution_clock::now();
