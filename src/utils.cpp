@@ -1,12 +1,12 @@
-#include <fstream>
-#include <iostream>
-#include "base_manager.h"
-#include <iostream>
+#include "utils.h"
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 
-std::string BaseManager::read_file(const std::string &file_name) {
+Dict count_words(const std::string& file, size_t start, size_t end) { return Dict{}; }
+
+std::string read_file(const std::string &file_name) {
     std::ifstream      in_file;
     std::stringstream  str_stream;
     std::string        file_str;
@@ -18,7 +18,7 @@ std::string BaseManager::read_file(const std::string &file_name) {
     return file_str;
 }
 
-std::vector<size_t> BaseManager::split_file(const std::string &file, size_t n_chunks) {
+std::vector<size_t> split_file(const std::string &file, size_t n_chunks) {
     std::vector<size_t>         indices;
     size_t                      estimated_chunk_len;
     auto                        file_length = file.length();
@@ -40,7 +40,7 @@ std::vector<size_t> BaseManager::split_file(const std::string &file, size_t n_ch
     return indices;
 }
 
-Dict BaseManager::merge_dicts(const Dict& d1, const Dict& d2) {
+Dict merge_dicts(const Dict& d1, const Dict& d2) {
     Dict result {d1};
     for (auto& [word, count] : d2) {
         auto it = d1.find(word);
@@ -53,7 +53,7 @@ Dict BaseManager::merge_dicts(const Dict& d1, const Dict& d2) {
     return result;
 }
 
-void BaseManager::save_dict(const std::string &filename, const OrderedDict &d) {
+void save_dict(const std::string &filename, const OrderedDict &d) {
     std::ofstream out(filename);
 
     if (!out.is_open()) {
@@ -64,13 +64,13 @@ void BaseManager::save_dict(const std::string &filename, const OrderedDict &d) {
     }
 }
 
-OrderedDict BaseManager::sort_by_a(const Dict& d) {
+OrderedDict sort_by_a(const Dict& d) {
     Function comparator = [](
-            const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
+            const Tuple& p1, const Tuple& p2) { return p1.first < p2.first; };
     return OrderedDict(d.begin(), d.end(), comparator);
 }
 
-OrderedDict BaseManager::sort_by_n(const Dict& d) {
+OrderedDict sort_by_n(const Dict& d) {
     Function comparator = [](
             const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
     return OrderedDict(d.begin(), d.end(), comparator);
