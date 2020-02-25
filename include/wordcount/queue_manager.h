@@ -7,7 +7,7 @@
 #include "wordcount/counter.h"
 #include "wordcount/merger.h"
 
-class QueueManager : BaseManager {
+class QueueManager : public BaseManager {
 public:
     QueueManager(
             std::string indir,
@@ -16,7 +16,6 @@ public:
             size_t n_count_threads,
             size_t n_merge_threads);
     void run();
-    void save();
 private:
     Queue<std::string> file_queue_;
     Queue<Dict> dict_queue_;

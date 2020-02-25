@@ -8,7 +8,8 @@ QueueManager::QueueManager(
         std::string out_by_n,
         size_t n_count_threads,
         size_t n_merge_threads)
-        : out_by_a { std::move(out_by_a) }
+        : BaseManager{ std::move(out_by_a), std::move(out_by_n) }
+        , out_by_a { std::move(out_by_a) }
         , out_by_n { std::move(out_by_n) }
         , indexer { std::move(indir), file_queue_ }
         , counters { n_count_threads, Counter{ file_queue_, dict_queue_ } }
@@ -40,12 +41,4 @@ void QueueManager::run() {
     // collect the result
     wc = dict_queue_.pop();
 }
-
-void QueueManager::save() {
-    auto wc_by_a = sort_by_a(wc);
-    save_dict(out_by_a, wc_by_a);
-    auto wc_by_n = sort_by_n(wc);
-    save_dict(out_by_n, wc_by_n);
-}
-
 

@@ -26,6 +26,7 @@ add_executable(${PROJECT_NAME}
         src/main.cpp
         src/utils.cpp
         src/config.cpp
+        src/base_manager.cpp
         src/simple_manager.cpp
         src/queue_manager.cpp
         src/indexer.cpp
