@@ -66,7 +66,7 @@ void save_dict(const std::string &filename, const OrderedDict &d) {
 
 OrderedDict sort_by_a(const Dict& d) {
     Function comparator = [](
-            const Tuple& p1, const Tuple& p2) { return p1.second > p2.second; };
+            const Tuple& p1, const Tuple& p2) { return p1.first < p2.first; };
     return OrderedDict(d.begin(), d.end(), comparator);
 }
 

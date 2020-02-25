@@ -13,7 +13,7 @@ public:
             std::string indir,
             std::string out_by_a,
             std::string out_by_n,
-            size_t n_index_threads,
+            size_t n_count_threads,
             size_t n_merge_threads);
     void run();
     void save();
