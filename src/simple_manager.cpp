@@ -4,7 +4,10 @@
 #include <numeric>
 
 void SimpleManager::read() {
-    file = std::move(read_file(infile));
+    if (is_archive(infile))
+        file = std::move(read_archive(infile));
+    else
+        file = std::move(read_file(infile));
 }
 
 void SimpleManager::count() {
