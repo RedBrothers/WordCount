@@ -45,7 +45,7 @@ bool       is_text_file(const std::string &file_name) {
     return std::find(
             extensions.begin(),
             extensions.end(),
-            boost::filesystem::extension(file_name)
+            boost::locale::to_lower(boost::filesystem::extension(file_name))
     ) != extensions.end();
 
 }
