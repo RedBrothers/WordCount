@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     // display execution time
     std:: cout
         << std::setprecision(3) << std::fixed
-        << "Counting done in " << reading.count() << " seconds\n";
+        << "Counting done in " << total.count() << " seconds\n";
 
     return 0;
 }
