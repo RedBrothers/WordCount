@@ -15,7 +15,7 @@ using OrderedDict = std::vector<Tuple>;
 
 
 const std::string INDEXING_DONE = "INDEXING DONE";
-const Dict COUNTING_DONE = { {"COUNTING" : 0} };
+const Dict COUNTING_DONE = { {"COUNTING" , 0} };
 
 
 #endif //WORDCOUNT_TYPEDEFS_H

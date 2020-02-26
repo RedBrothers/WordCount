@@ -30,36 +30,36 @@ private:
 template<typename T>
 void Deque<T>::push_front(const T& el) {
     std::unique_lock lock{ m_ };
-    queue_.push(el);
+    queue_.push_front(el);
     lock.unlock();
 }
 
 template<typename T>
 void Deque<T>::push_front(T&& el) {
     std::unique_lock lock{ m_ };
-    queue_.push(std::move(el));
+    queue_.push_front(std::move(el));
     lock.unlock();
 }
 
 template<typename T>
 void Deque<T>::push_back(const T& el) {
     std::unique_lock lock{ m_ };
-    queue_.push(el);
+    queue_.push_back(el);
     lock.unlock();
 }
 
 template<typename T>
 void Deque<T>::push_back(T&& el) {
     std::unique_lock lock{ m_ };
-    queue_.push(std::move(el));
+    queue_.push_back(std::move(el));
     lock.unlock();
 }
 
 template<typename T>
 T Deque<T>::pop_front() {
     std::unique_lock lock{ m_ };
-    auto el = queue_.back();
-    queue_.pop();
+    auto el = queue_.front();
+    queue_.pop_front();
     lock.unlock();
     return el;
 }
@@ -68,7 +68,7 @@ template<typename T>
 T Deque<T>::pop_back() {
     std::unique_lock lock{ m_ };
     auto el = queue_.back();
-    queue_.pop();
+    queue_.pop_back();
     lock.unlock();
     return el;
 }
