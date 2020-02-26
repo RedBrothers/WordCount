@@ -9,6 +9,7 @@
 std::string         read_file(const std::string& filename);
 std::vector<size_t> split_file(const std::string& file, size_t n_chunks);
 bool                is_archive(const std::string &file_name);
+bool                is_text_file(const std::string& file_name);
 std::string         read_archive(const std::string &file_name);
 
 // word counting
