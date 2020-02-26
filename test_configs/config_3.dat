@@ -1,4 +1,0 @@
-infile=../data/sample_1/data.zip
-out_by_a=../res_a_1_thread_zip.txt
-out_by_n=../res_n_1_thread_zip.txt
-threads=1
