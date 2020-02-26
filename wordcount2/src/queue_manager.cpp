@@ -13,7 +13,11 @@ QueueManager::QueueManager(
         , out_by_n { std::move(out_by_n) }
         , indexer { std::move(indir), file_queue_ }
         , counters { n_count_threads, Counter{ file_queue_, dict_queue_ } }
-        , mergers { n_merge_threads, Merger{ dict_queue_, m_ } } {}
+        , mergers { n_merge_threads, Merger{ dict_queue_, m_ } } {
+    // for successful termination
+    // in case of empty directory
+    dict_queue_.push_back({});
+}
 
 void QueueManager::run() {
     // launch indexing
