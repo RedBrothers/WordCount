@@ -20,6 +20,7 @@ void Merger::run() {
             dict_queue_.push_front(d1);
             dict_queue_.push_back(d2);
             // no break here
+            continue;
         }
 
         auto d = merge_dicts(d1, d2);
