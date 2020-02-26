@@ -39,6 +39,17 @@ bool       is_archive(const std::string &file_name) {
 
 }
 
+bool       is_text_file(const std::string &file_name) {
+    std::vector<std::string> extensions = {".txt"};
+
+    return std::find(
+            extensions.begin(),
+            extensions.end(),
+            boost::filesystem::extension(file_name)
+    ) != extensions.end();
+
+}
+
 std::string read_archive(const std::string &file_name) {
     std::stringstream           ss;
     std::vector<std::string>    vs;
@@ -105,6 +116,7 @@ std::vector<size_t> split_file(const std::string &file, size_t n_chunks) {
 }
 
 Dict merge_dicts(const Dict& d1, const Dict& d2) {
+    // maybe we don't need a copy?
     Dict result {d1};
     for (auto& [word, count] : d2) {
         auto it = d1.find(word);

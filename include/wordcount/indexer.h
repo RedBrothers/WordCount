@@ -7,13 +7,16 @@
 class Indexer {
 public:
     Indexer(std::string indir,
-            Queue<std::string>& file_queue)
+            Deque<std::string>& file_queue)
             : indir_{ std::move(indir) }
             , file_queue_{ file_queue } {}
+
     void run();
 private:
     std::string indir_;
-    Queue<std::string>& file_queue_;
+    Deque<std::string>& file_queue_;
+
+    void index_dir(const std::string& dir);
 };
 
 #endif //WORDCOUNT_INDEXER_H

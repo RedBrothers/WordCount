@@ -6,6 +6,7 @@
 #include "wordcount/indexer.h"
 #include "wordcount/counter.h"
 #include "wordcount/merger.h"
+#include <mutex>
 
 class QueueManager : public BaseManager {
 public:
@@ -17,8 +18,10 @@ public:
             size_t n_merge_threads);
     void run();
 private:
-    Queue<std::string> file_queue_;
-    Queue<Dict> dict_queue_;
+    std::mutex m_;
+
+    Deque<std::string> file_queue_;
+    Deque<Dict> dict_queue_;
 
     Indexer indexer;
     std::vector<Counter> counters;

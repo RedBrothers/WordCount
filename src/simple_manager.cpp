@@ -6,8 +6,10 @@
 void SimpleManager::read() {
     if (is_archive(infile))
         file = std::move(read_archive(infile));
-    else
+    else if (is_text_file(infile))
         file = std::move(read_file(infile));
+    else
+        file = "";
 }
 
 void SimpleManager::count() {

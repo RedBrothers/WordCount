@@ -13,7 +13,7 @@ QueueManager::QueueManager(
         , out_by_n { std::move(out_by_n) }
         , indexer { std::move(indir), file_queue_ }
         , counters { n_count_threads, Counter{ file_queue_, dict_queue_ } }
-        , mergers { n_merge_threads, Merger{ dict_queue_ } } {}
+        , mergers { n_merge_threads, Merger{ dict_queue_, m_ } } {}
 
 void QueueManager::run() {
     // launch indexing
@@ -33,12 +33,15 @@ void QueueManager::run() {
         merge_threads.emplace_back(&Merger::run, &m);
     }
 
-    // wait for all threads to finish
+    // wait for all threads to finish and
+    // "signal" next workers about it
     index_thread.join();
+    file_queue_.push_front(INDEXING_DONE);
     for (auto& t : count_threads) t.join();
+    dict_queue_.push_front(COUNTING_DONE);
     for (auto& t : merge_threads) t.join();
 
     // collect the result
-    wc = dict_queue_.pop();
+    wc = dict_queue_.pop_back();
 }
 
