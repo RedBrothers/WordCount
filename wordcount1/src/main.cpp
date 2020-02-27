@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <iostream>
 #include <boost/locale.hpp>
+#include <boost/filesystem.hpp>
 
 int main(int argc, char* argv[]) {
 
@@ -15,8 +16,19 @@ int main(int argc, char* argv[]) {
     } else {
         filename = std::string(argv[1]);
     }
+    if (!boost::filesystem::exists(filename) || !boost::filesystem::is_regular_file(filename)) {
+        std::cout << "Config file " << filename << " is not valid !" << std::endl;
+        return 1;
+    }
+
     ConfigParser parser(filename);
     std::string infile = parser.get("infile");
+
+    if (!boost::filesystem::exists(infile) || !boost::filesystem::is_regular_file(filename)) {
+        std::cout << "Error in config.dat: infile=" << infile << " is not a valid file !" << std::endl;
+        return 1;
+    }
+
     std::string out_by_a = parser.get("out_by_a");
     std::string out_by_n = parser.get("out_by_n");
     size_t n_threads = std::stoul(parser.get("threads"));
@@ -31,7 +43,13 @@ int main(int argc, char* argv[]) {
     auto start = std::chrono::high_resolution_clock::now();
 
     auto r_start = std::chrono::high_resolution_clock::now();
-    manager.read();
+    try {
+        manager.read();
+    } catch (std::exception &e) {
+        std::cout << "Exception was caught while reading/unarchiving file" << std::endl;
+        std::cout << e.what();
+        return 1;
+    }
     auto r_end = std::chrono::high_resolution_clock::now();
 
     auto c_start = std::chrono::high_resolution_clock::now();
