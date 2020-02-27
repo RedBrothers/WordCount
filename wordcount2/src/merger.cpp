@@ -4,8 +4,8 @@
 void Merger::run() {
     while (true) {
         std::unique_lock lock{ m_ };
-        auto d1 = std::move(dict_queue_.pop_back());
-        auto d2 = std::move(dict_queue_.pop_back());
+        auto d1 = dict_queue_.pop_back();
+        auto d2 = dict_queue_.pop_back();
         lock.unlock();
 
         // check termination condition
@@ -23,7 +23,7 @@ void Merger::run() {
             continue;
         }
 
-        auto d = std::move(merge_dicts(d1, d2));
+        auto d = merge_dicts(d1, d2);
         dict_queue_.push_back(std::move(d));
     }
 }
