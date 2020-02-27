@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     std::string indir = parser.get("indir");
 
     if (!boost::filesystem::exists(indir) || !boost::filesystem::is_directory(indir)) {
-        std::cout << "Error in config.dat: infile=" << indir << " is not a valid file !" << std::endl;
+        std::cout << "Error in config.dat: infile=" << indir << " is not a valid directory !" << std::endl;
         return 1;
     }
 
