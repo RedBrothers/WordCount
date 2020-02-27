@@ -4,7 +4,7 @@
 void Counter::run() {
     while (true) {
         // pop file from file queue
-        auto file = std::move(file_queue_.pop_back());
+        auto file = file_queue_.pop_back();
 
         // check termination condition
         if (file == INDEXING_DONE) {
@@ -15,7 +15,7 @@ void Counter::run() {
 
         // process file
         try {
-            auto wc = std::move(count_words(file, 0, file.length()));
+            auto wc = count_words(file, 0, file.length());
             // push dict into dict queue
             dict_queue_.push_front(std::move(wc));
         } catch(...) {
