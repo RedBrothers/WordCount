@@ -15,10 +15,11 @@ def main():
 
     N = int(sys.argv[1])
 
-    config_dat =    "infile=../data/sample_1/data.zip\n" +\
+    config_dat =    "indir=../data/test\n" +\
                     "out_by_a=./res_a_{}.txt\n" +\
                     "out_by_n=./res_n_{}.txt\n" +\
-                    "threads=4\n"
+                    "сount_threads=2\n" +\
+                    "merge_threads=2\n"
     res_by_a = []
     res_by_n = []
 
@@ -38,7 +39,7 @@ def main():
         p.kill()
         os.remove(filename)
         output = output.decode("utf-8")
-        time = output.split('\n')[-2].split()[-2]
+        time = output.split()[-2]
         times.append(float(time))
 
         res_a_file = f'./res_a_{i}.txt'
