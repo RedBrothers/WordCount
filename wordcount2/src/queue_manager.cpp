@@ -46,6 +46,6 @@ void QueueManager::run() {
     for (auto& t : merge_threads) t.join();
 
     // collect the result
-    wc = dict_queue_.pop_back();
+    wc = std::move(dict_queue_.pop_back());
 }
 
